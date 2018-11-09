@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qc.ssm.mapper.AppconfigMapper" >
+  <resultMap id="BaseResultMap" type="com.qc.ssm.po.Appconfig" >
+    <id column="appid" property="appid" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="param" property="param" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="appname" property="appname" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="itunesurl" property="itunesurl" jdbcType="VARCHAR" />
+    <result column="kouliang" property="kouliang" jdbcType="INTEGER" />
+    <result column="callback" property="callback" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    appid, url, param, status, time, channel, appname, cname, itunesurl, kouliang, callback
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qc.ssm.po.AppconfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from appconfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from appconfig
+    where appid = #{appid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from appconfig
+    where appid = #{appid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qc.ssm.po.AppconfigExample" >
+    delete from appconfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qc.ssm.po.Appconfig" >
+    insert into appconfig (appid, url, param, 
+      status, time, channel, 
+      appname, cname, itunesurl, 
+      kouliang, callback)
+    values (#{appid,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{param,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{channel,jdbcType=VARCHAR}, 
+      #{appname,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, #{itunesurl,jdbcType=VARCHAR}, 
+      #{kouliang,jdbcType=INTEGER}, #{callback,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qc.ssm.po.Appconfig" >
+    insert into appconfig
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appid != null" >
+        appid,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="param != null" >
+        param,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="appname != null" >
+        appname,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="itunesurl != null" >
+        itunesurl,
+      </if>
+      <if test="kouliang != null" >
+        kouliang,
+      </if>
+      <if test="callback != null" >
+        callback,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appid != null" >
+        #{appid,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null" >
+        #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="appname != null" >
+        #{appname,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="itunesurl != null" >
+        #{itunesurl,jdbcType=VARCHAR},
+      </if>
+      <if test="kouliang != null" >
+        #{kouliang,jdbcType=INTEGER},
+      </if>
+      <if test="callback != null" >
+        #{callback,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qc.ssm.po.AppconfigExample" resultType="java.lang.Integer" >
+    select count(*) from appconfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update appconfig
+    <set >
+      <if test="record.appid != null" >
+        appid = #{record.appid,jdbcType=INTEGER},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.param != null" >
+        param = #{record.param,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.channel != null" >
+        channel = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appname != null" >
+        appname = #{record.appname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cname != null" >
+        cname = #{record.cname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itunesurl != null" >
+        itunesurl = #{record.itunesurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kouliang != null" >
+        kouliang = #{record.kouliang,jdbcType=INTEGER},
+      </if>
+      <if test="record.callback != null" >
+        callback = #{record.callback,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update appconfig
+    set appid = #{record.appid,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      param = #{record.param,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      channel = #{record.channel,jdbcType=VARCHAR},
+      appname = #{record.appname,jdbcType=VARCHAR},
+      cname = #{record.cname,jdbcType=VARCHAR},
+      itunesurl = #{record.itunesurl,jdbcType=VARCHAR},
+      kouliang = #{record.kouliang,jdbcType=INTEGER},
+      callback = #{record.callback,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qc.ssm.po.Appconfig" >
+    update appconfig
+    <set >
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null" >
+        param = #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="appname != null" >
+        appname = #{appname,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="itunesurl != null" >
+        itunesurl = #{itunesurl,jdbcType=VARCHAR},
+      </if>
+      <if test="kouliang != null" >
+        kouliang = #{kouliang,jdbcType=INTEGER},
+      </if>
+      <if test="callback != null" >
+        callback = #{callback,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where appid = #{appid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qc.ssm.po.Appconfig" >
+    update appconfig
+    set url = #{url,jdbcType=VARCHAR},
+      param = #{param,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      channel = #{channel,jdbcType=VARCHAR},
+      appname = #{appname,jdbcType=VARCHAR},
+      cname = #{cname,jdbcType=VARCHAR},
+      itunesurl = #{itunesurl,jdbcType=VARCHAR},
+      kouliang = #{kouliang,jdbcType=INTEGER},
+      callback = #{callback,jdbcType=VARCHAR}
+    where appid = #{appid,jdbcType=INTEGER}
+  </update>
+  <select id="findAppConfigByAppidAndStatus" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT * FROM appconfig WHERE appid=#{appid} AND status=#{status}
+  </select>
+  <select id="findAppConfigByAppidStaChan" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT * FROM appconfig WHERE appid=#{appid} AND status=#{status} AND channel=#{channel}
+  </select>
+</mapper>

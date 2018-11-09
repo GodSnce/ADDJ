@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qc.ssm.mapper.wx.WxApplicationMapper" >
+  <resultMap id="BaseResultMap" type="com.qc.ssm.po.wx.WxApplication" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="announcement" property="announcement" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="developer_message" property="developerMessage" jdbcType="VARCHAR" />
+    <result column="icon_url" property="iconUrl" jdbcType="VARCHAR" />
+    <result column="is_poi" property="isPoi" jdbcType="BIT" />
+    <result column="label" property="label" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="overall_rating" property="overallRating" jdbcType="INTEGER" />
+    <result column="qrcode_url" property="qrcodeUrl" jdbcType="VARCHAR" />
+    <result column="rating" property="rating" jdbcType="INTEGER" />
+    <result column="recommendation_reason" property="recommendationReason" jdbcType="VARCHAR" />
+    <result column="recommended_at" property="recommendedAt" jdbcType="VARCHAR" />
+    <result column="release_status" property="releaseStatus" jdbcType="VARCHAR" />
+    <result column="reputation" property="reputation" jdbcType="VARCHAR" />
+    <result column="screenshot_url" property="screenshotUrl" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
+    <result column="visit_amount" property="visitAmount" jdbcType="INTEGER" />
+    <result column="wx_number" property="wxNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, announcement, created_at, created_by, description, developer_message, icon_url, 
+    is_poi, label, name, overall_rating, qrcode_url, rating, recommendation_reason, recommended_at, 
+    release_status, reputation, screenshot_url, tag, video_url, visit_amount, wx_number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qc.ssm.po.wx.WxApplicationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wx_application
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wx_application
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qc.ssm.po.wx.WxApplicationExample" >
+    delete from wx_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qc.ssm.po.wx.WxApplication" >
+    insert into wx_application (id, announcement, created_at, 
+      created_by, description, developer_message, 
+      icon_url, is_poi, label, 
+      name, overall_rating, qrcode_url, 
+      rating, recommendation_reason, recommended_at, 
+      release_status, reputation, screenshot_url, 
+      tag, video_url, visit_amount, 
+      wx_number)
+    values (#{id,jdbcType=INTEGER}, #{announcement,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{developerMessage,jdbcType=VARCHAR}, 
+      #{iconUrl,jdbcType=VARCHAR}, #{isPoi,jdbcType=BIT}, #{label,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{overallRating,jdbcType=INTEGER}, #{qrcodeUrl,jdbcType=VARCHAR}, 
+      #{rating,jdbcType=INTEGER}, #{recommendationReason,jdbcType=VARCHAR}, #{recommendedAt,jdbcType=VARCHAR}, 
+      #{releaseStatus,jdbcType=VARCHAR}, #{reputation,jdbcType=VARCHAR}, #{screenshotUrl,jdbcType=VARCHAR}, 
+      #{tag,jdbcType=VARCHAR}, #{videoUrl,jdbcType=VARCHAR}, #{visitAmount,jdbcType=INTEGER}, 
+      #{wxNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qc.ssm.po.wx.WxApplication" >
+    insert into wx_application
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="announcement != null" >
+        announcement,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="developerMessage != null" >
+        developer_message,
+      </if>
+      <if test="iconUrl != null" >
+        icon_url,
+      </if>
+      <if test="isPoi != null" >
+        is_poi,
+      </if>
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="overallRating != null" >
+        overall_rating,
+      </if>
+      <if test="qrcodeUrl != null" >
+        qrcode_url,
+      </if>
+      <if test="rating != null" >
+        rating,
+      </if>
+      <if test="recommendationReason != null" >
+        recommendation_reason,
+      </if>
+      <if test="recommendedAt != null" >
+        recommended_at,
+      </if>
+      <if test="releaseStatus != null" >
+        release_status,
+      </if>
+      <if test="reputation != null" >
+        reputation,
+      </if>
+      <if test="screenshotUrl != null" >
+        screenshot_url,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="videoUrl != null" >
+        video_url,
+      </if>
+      <if test="visitAmount != null" >
+        visit_amount,
+      </if>
+      <if test="wxNumber != null" >
+        wx_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="announcement != null" >
+        #{announcement,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="developerMessage != null" >
+        #{developerMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null" >
+        #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isPoi != null" >
+        #{isPoi,jdbcType=BIT},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="overallRating != null" >
+        #{overallRating,jdbcType=INTEGER},
+      </if>
+      <if test="qrcodeUrl != null" >
+        #{qrcodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rating != null" >
+        #{rating,jdbcType=INTEGER},
+      </if>
+      <if test="recommendationReason != null" >
+        #{recommendationReason,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedAt != null" >
+        #{recommendedAt,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseStatus != null" >
+        #{releaseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reputation != null" >
+        #{reputation,jdbcType=VARCHAR},
+      </if>
+      <if test="screenshotUrl != null" >
+        #{screenshotUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="visitAmount != null" >
+        #{visitAmount,jdbcType=INTEGER},
+      </if>
+      <if test="wxNumber != null" >
+        #{wxNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qc.ssm.po.wx.WxApplicationExample" resultType="java.lang.Integer" >
+    select count(*) from wx_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wx_application
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.announcement != null" >
+        announcement = #{record.announcement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null" >
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.developerMessage != null" >
+        developer_message = #{record.developerMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconUrl != null" >
+        icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPoi != null" >
+        is_poi = #{record.isPoi,jdbcType=BIT},
+      </if>
+      <if test="record.label != null" >
+        label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overallRating != null" >
+        overall_rating = #{record.overallRating,jdbcType=INTEGER},
+      </if>
+      <if test="record.qrcodeUrl != null" >
+        qrcode_url = #{record.qrcodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rating != null" >
+        rating = #{record.rating,jdbcType=INTEGER},
+      </if>
+      <if test="record.recommendationReason != null" >
+        recommendation_reason = #{record.recommendationReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommendedAt != null" >
+        recommended_at = #{record.recommendedAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.releaseStatus != null" >
+        release_status = #{record.releaseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reputation != null" >
+        reputation = #{record.reputation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.screenshotUrl != null" >
+        screenshot_url = #{record.screenshotUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag != null" >
+        tag = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoUrl != null" >
+        video_url = #{record.videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitAmount != null" >
+        visit_amount = #{record.visitAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxNumber != null" >
+        wx_number = #{record.wxNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wx_application
+    set id = #{record.id,jdbcType=INTEGER},
+      announcement = #{record.announcement,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      developer_message = #{record.developerMessage,jdbcType=VARCHAR},
+      icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      is_poi = #{record.isPoi,jdbcType=BIT},
+      label = #{record.label,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      overall_rating = #{record.overallRating,jdbcType=INTEGER},
+      qrcode_url = #{record.qrcodeUrl,jdbcType=VARCHAR},
+      rating = #{record.rating,jdbcType=INTEGER},
+      recommendation_reason = #{record.recommendationReason,jdbcType=VARCHAR},
+      recommended_at = #{record.recommendedAt,jdbcType=VARCHAR},
+      release_status = #{record.releaseStatus,jdbcType=VARCHAR},
+      reputation = #{record.reputation,jdbcType=VARCHAR},
+      screenshot_url = #{record.screenshotUrl,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      video_url = #{record.videoUrl,jdbcType=VARCHAR},
+      visit_amount = #{record.visitAmount,jdbcType=INTEGER},
+      wx_number = #{record.wxNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qc.ssm.po.wx.WxApplication" >
+    update wx_application
+    <set >
+      <if test="announcement != null" >
+        announcement = #{announcement,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="developerMessage != null" >
+        developer_message = #{developerMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null" >
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isPoi != null" >
+        is_poi = #{isPoi,jdbcType=BIT},
+      </if>
+      <if test="label != null" >
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="overallRating != null" >
+        overall_rating = #{overallRating,jdbcType=INTEGER},
+      </if>
+      <if test="qrcodeUrl != null" >
+        qrcode_url = #{qrcodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rating != null" >
+        rating = #{rating,jdbcType=INTEGER},
+      </if>
+      <if test="recommendationReason != null" >
+        recommendation_reason = #{recommendationReason,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedAt != null" >
+        recommended_at = #{recommendedAt,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseStatus != null" >
+        release_status = #{releaseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reputation != null" >
+        reputation = #{reputation,jdbcType=VARCHAR},
+      </if>
+      <if test="screenshotUrl != null" >
+        screenshot_url = #{screenshotUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="visitAmount != null" >
+        visit_amount = #{visitAmount,jdbcType=INTEGER},
+      </if>
+      <if test="wxNumber != null" >
+        wx_number = #{wxNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qc.ssm.po.wx.WxApplication" >
+    update wx_application
+    set announcement = #{announcement,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      developer_message = #{developerMessage,jdbcType=VARCHAR},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
+      is_poi = #{isPoi,jdbcType=BIT},
+      label = #{label,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      overall_rating = #{overallRating,jdbcType=INTEGER},
+      qrcode_url = #{qrcodeUrl,jdbcType=VARCHAR},
+      rating = #{rating,jdbcType=INTEGER},
+      recommendation_reason = #{recommendationReason,jdbcType=VARCHAR},
+      recommended_at = #{recommendedAt,jdbcType=VARCHAR},
+      release_status = #{releaseStatus,jdbcType=VARCHAR},
+      reputation = #{reputation,jdbcType=VARCHAR},
+      screenshot_url = #{screenshotUrl,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      video_url = #{videoUrl,jdbcType=VARCHAR},
+      visit_amount = #{visitAmount,jdbcType=INTEGER},
+      wx_number = #{wxNumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getWxApplication" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT * FROM wx_application ORDER BY visit_amount DESC LIMIT #{index},#{size}
+  </select>
+
+  <select id="getJsonByKeyword" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT * FROM wx_application WHERE name LIKE #{word} ORDER BY visit_amount DESC
+  </select>
+
+  <select id="getJsonByCategory" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT * FROM wx_application WHERE tag LIKE #{category} ORDER BY visit_amount DESC
+  </select>
+</mapper>

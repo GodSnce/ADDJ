@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qc.ssm.mapper.AppdataMapper" >
+  <resultMap id="BaseResultMap" type="com.qc.ssm.po.Appdata" >
+    <id column="appid" property="appid" jdbcType="INTEGER" />
+    <result column="idfa" property="idfa" jdbcType="VARCHAR" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="cip" property="cip" jdbcType="VARCHAR" />
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    <result column="regip" property="regip" jdbcType="VARCHAR" />
+    <result column="regtime" property="regtime" jdbcType="TIMESTAMP" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="callback" property="callback" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    appid, idfa, imei, status, cip, ctime, regip, regtime, channel, callback
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qc.ssm.po.AppdataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from appdata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from appdata
+    where appid = #{appid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from appdata
+    where appid = #{appid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qc.ssm.po.AppdataExample" >
+    delete from appdata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qc.ssm.po.Appdata" >
+    insert into appdata (appid, idfa, imei, 
+      status, cip, ctime, 
+      regip, regtime, channel, 
+      callback)
+    values (#{appid,jdbcType=INTEGER}, #{idfa,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{cip,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP}, 
+      #{regip,jdbcType=VARCHAR}, #{regtime,jdbcType=TIMESTAMP}, #{channel,jdbcType=VARCHAR}, 
+      #{callback,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qc.ssm.po.Appdata" >
+    insert into appdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appid != null" >
+        appid,
+      </if>
+      <if test="idfa != null" >
+        idfa,
+      </if>
+      <if test="imei != null" >
+        imei,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="cip != null" >
+        cip,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="regip != null" >
+        regip,
+      </if>
+      <if test="regtime != null" >
+        regtime,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="callback != null" >
+        callback,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appid != null" >
+        #{appid,jdbcType=INTEGER},
+      </if>
+      <if test="idfa != null" >
+        #{idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cip != null" >
+        #{cip,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regip != null" >
+        #{regip,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null" >
+        #{regtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="callback != null" >
+        #{callback,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qc.ssm.po.AppdataExample" resultType="java.lang.Integer" >
+    select count(*) from appdata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update appdata
+    <set >
+      <if test="record.appid != null" >
+        appid = #{record.appid,jdbcType=INTEGER},
+      </if>
+      <if test="record.idfa != null" >
+        idfa = #{record.idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imei != null" >
+        imei = #{record.imei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.cip != null" >
+        cip = #{record.cip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctime != null" >
+        ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regip != null" >
+        regip = #{record.regip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regtime != null" >
+        regtime = #{record.regtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.channel != null" >
+        channel = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callback != null" >
+        callback = #{record.callback,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update appdata
+    set appid = #{record.appid,jdbcType=INTEGER},
+      idfa = #{record.idfa,jdbcType=VARCHAR},
+      imei = #{record.imei,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      cip = #{record.cip,jdbcType=VARCHAR},
+      ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      regip = #{record.regip,jdbcType=VARCHAR},
+      regtime = #{record.regtime,jdbcType=TIMESTAMP},
+      channel = #{record.channel,jdbcType=VARCHAR},
+      callback = #{record.callback,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qc.ssm.po.Appdata" >
+    update appdata
+    <set >
+      <if test="idfa != null" >
+        idfa = #{idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cip != null" >
+        cip = #{cip,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regip != null" >
+        regip = #{regip,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null" >
+        regtime = #{regtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="callback != null" >
+        callback = #{callback,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where appid = #{appid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qc.ssm.po.Appdata" >
+    update appdata
+    set idfa = #{idfa,jdbcType=VARCHAR},
+      imei = #{imei,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      cip = #{cip,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      regip = #{regip,jdbcType=VARCHAR},
+      regtime = #{regtime,jdbcType=TIMESTAMP},
+      channel = #{channel,jdbcType=VARCHAR},
+      callback = #{callback,jdbcType=VARCHAR}
+    where appid = #{appid,jdbcType=INTEGER}
+  </update>
+  <update id="updateStatusByAppidAndIdfa" parameterType="java.util.Map">
+    UPDATE appdata SET status=#{status},regtime=#{regtime} WHERE idfa=#{idfa} AND appid=#{appid}
+  </update>
+  <select id="findByAppidIdfa" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT * FROM appdata WHERE appid=#{appid} AND idfa=#{idfa}
+  </select>
+</mapper>

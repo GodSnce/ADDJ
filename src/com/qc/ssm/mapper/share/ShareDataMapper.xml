@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qc.ssm.mapper.share.ShareDataMapper" >
+  <resultMap id="BaseResultMap" type="com.qc.ssm.po.share.ShareData" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="TINYINT" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="descript" property="descript" jdbcType="VARCHAR" />
+    <result column="infavs" property="infavs" jdbcType="TINYINT" />
+    <result column="inlikes" property="inlikes" jdbcType="TINYINT" />
+    <result column="share_link" property="shareLink" jdbcType="VARCHAR" />
+    <result column="likes" property="likes" jdbcType="INTEGER" />
+    <result column="comments" property="comments" jdbcType="INTEGER" />
+    <result column="share_count" property="shareCount" jdbcType="INTEGER" />
+    <result column="dispaly_title" property="dispalyTitle" jdbcType="VARCHAR" />
+    <result column="fav_count" property="favCount" jdbcType="INTEGER" />
+    <result column="read_count" property="readCount" jdbcType="INTEGER" />
+    <result column="is_goods_note" property="isGoodsNote" jdbcType="TINYINT" />
+    <result column="model_type" property="modelType" jdbcType="VARCHAR" />
+    <result column="cursor_score" property="cursorScore" jdbcType="DOUBLE" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <!--配置一对多关系，将图片信息、小程序信息、视频信息添加到ShareData中-->
+  <resultMap type="com.qc.ssm.po.share.ShareData" id="shareDataImageList" extends="BaseResultMap">
+    <!--property="shareDataImages"为实体类中属性名称-->
+    <collection property="shareDataImages" ofType="com.qc.ssm.po.share.ShareDataImage">
+      <id column="fileid" property="fileid" jdbcType="VARCHAR" />
+      <result column="height" property="height" jdbcType="INTEGER" />
+      <result column="width" property="width" jdbcType="INTEGER" />
+      <result column="url" property="url" jdbcType="VARCHAR" />
+      <result column="original" property="original" jdbcType="VARCHAR" />
+      <result column="url_size_large" property="urlSizeLarge" jdbcType="DOUBLE" />
+      <result column="share_data_id" property="shareDataId" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="shareDataMiniPrograms" ofType="com.qc.ssm.po.share.ShareDataMiniProgram">
+      <id column="id" property="id" jdbcType="VARCHAR" />
+      <result column="path" property="path" jdbcType="VARCHAR" />
+      <result column="title" property="title" jdbcType="VARCHAR" />
+      <result column="descript" property="descript" jdbcType="VARCHAR" />
+      <result column="thumb" property="thumb" jdbcType="VARCHAR" />
+      <result column="user_name" property="userName" jdbcType="VARCHAR" />
+      <result column="webpage_url" property="webpageUrl" jdbcType="VARCHAR" />
+      <result column="share_title" property="shareTitle" jdbcType="VARCHAR" />
+      <result column="share_data_id" property="shareDataId" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="shareDataVideos" ofType="com.qc.ssm.po.share.ShareDataVideo">
+      <id column="id" property="id" jdbcType="VARCHAR" />
+      <result column="played_count" property="playedCount" jdbcType="INTEGER" />
+      <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
+      <result column="height" property="height" jdbcType="INTEGER" />
+      <result column="width" property="width" jdbcType="INTEGER" />
+      <result column="gif_url" property="gifUrl" jdbcType="VARCHAR" />
+      <result column="share_data_id" property="shareDataId" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  
+  
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, enable, level, type, name, title, descript, infavs, inlikes, share_link, likes, 
+    comments, share_count, dispaly_title, fav_count, read_count, is_goods_note, model_type, 
+    cursor_score, category
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qc.ssm.po.share.ShareDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from share_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from share_data
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from share_data
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qc.ssm.po.share.ShareDataExample" >
+    delete from share_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qc.ssm.po.share.ShareData" >
+    insert into share_data (id, enable, level, 
+      type, name, title, 
+      descript, infavs, inlikes, 
+      share_link, likes, comments, 
+      share_count, dispaly_title, fav_count, 
+      read_count, is_goods_note, model_type, 
+      cursor_score, category)
+    values (#{id,jdbcType=VARCHAR}, #{enable,jdbcType=TINYINT}, #{level,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{descript,jdbcType=VARCHAR}, #{infavs,jdbcType=TINYINT}, #{inlikes,jdbcType=TINYINT}, 
+      #{shareLink,jdbcType=VARCHAR}, #{likes,jdbcType=INTEGER}, #{comments,jdbcType=INTEGER}, 
+      #{shareCount,jdbcType=INTEGER}, #{dispalyTitle,jdbcType=VARCHAR}, #{favCount,jdbcType=INTEGER}, 
+      #{readCount,jdbcType=INTEGER}, #{isGoodsNote,jdbcType=TINYINT}, #{modelType,jdbcType=VARCHAR}, 
+      #{cursorScore,jdbcType=DOUBLE}, #{category,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qc.ssm.po.share.ShareData" >
+    insert into share_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="descript != null" >
+        descript,
+      </if>
+      <if test="infavs != null" >
+        infavs,
+      </if>
+      <if test="inlikes != null" >
+        inlikes,
+      </if>
+      <if test="shareLink != null" >
+        share_link,
+      </if>
+      <if test="likes != null" >
+        likes,
+      </if>
+      <if test="comments != null" >
+        comments,
+      </if>
+      <if test="shareCount != null" >
+        share_count,
+      </if>
+      <if test="dispalyTitle != null" >
+        dispaly_title,
+      </if>
+      <if test="favCount != null" >
+        fav_count,
+      </if>
+      <if test="readCount != null" >
+        read_count,
+      </if>
+      <if test="isGoodsNote != null" >
+        is_goods_note,
+      </if>
+      <if test="modelType != null" >
+        model_type,
+      </if>
+      <if test="cursorScore != null" >
+        cursor_score,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=TINYINT},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null" >
+        #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="infavs != null" >
+        #{infavs,jdbcType=TINYINT},
+      </if>
+      <if test="inlikes != null" >
+        #{inlikes,jdbcType=TINYINT},
+      </if>
+      <if test="shareLink != null" >
+        #{shareLink,jdbcType=VARCHAR},
+      </if>
+      <if test="likes != null" >
+        #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null" >
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="dispalyTitle != null" >
+        #{dispalyTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="favCount != null" >
+        #{favCount,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null" >
+        #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="isGoodsNote != null" >
+        #{isGoodsNote,jdbcType=TINYINT},
+      </if>
+      <if test="modelType != null" >
+        #{modelType,jdbcType=VARCHAR},
+      </if>
+      <if test="cursorScore != null" >
+        #{cursorScore,jdbcType=DOUBLE},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qc.ssm.po.share.ShareDataExample" resultType="java.lang.Integer" >
+    select count(*) from share_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update share_data
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enable != null" >
+        enable = #{record.enable,jdbcType=TINYINT},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descript != null" >
+        descript = #{record.descript,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infavs != null" >
+        infavs = #{record.infavs,jdbcType=TINYINT},
+      </if>
+      <if test="record.inlikes != null" >
+        inlikes = #{record.inlikes,jdbcType=TINYINT},
+      </if>
+      <if test="record.shareLink != null" >
+        share_link = #{record.shareLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likes != null" >
+        likes = #{record.likes,jdbcType=INTEGER},
+      </if>
+      <if test="record.comments != null" >
+        comments = #{record.comments,jdbcType=INTEGER},
+      </if>
+      <if test="record.shareCount != null" >
+        share_count = #{record.shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.dispalyTitle != null" >
+        dispaly_title = #{record.dispalyTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.favCount != null" >
+        fav_count = #{record.favCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.readCount != null" >
+        read_count = #{record.readCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.isGoodsNote != null" >
+        is_goods_note = #{record.isGoodsNote,jdbcType=TINYINT},
+      </if>
+      <if test="record.modelType != null" >
+        model_type = #{record.modelType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cursorScore != null" >
+        cursor_score = #{record.cursorScore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update share_data
+    set id = #{record.id,jdbcType=VARCHAR},
+      enable = #{record.enable,jdbcType=TINYINT},
+      level = #{record.level,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      descript = #{record.descript,jdbcType=VARCHAR},
+      infavs = #{record.infavs,jdbcType=TINYINT},
+      inlikes = #{record.inlikes,jdbcType=TINYINT},
+      share_link = #{record.shareLink,jdbcType=VARCHAR},
+      likes = #{record.likes,jdbcType=INTEGER},
+      comments = #{record.comments,jdbcType=INTEGER},
+      share_count = #{record.shareCount,jdbcType=INTEGER},
+      dispaly_title = #{record.dispalyTitle,jdbcType=VARCHAR},
+      fav_count = #{record.favCount,jdbcType=INTEGER},
+      read_count = #{record.readCount,jdbcType=INTEGER},
+      is_goods_note = #{record.isGoodsNote,jdbcType=TINYINT},
+      model_type = #{record.modelType,jdbcType=VARCHAR},
+      cursor_score = #{record.cursorScore,jdbcType=DOUBLE},
+      category = #{record.category,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qc.ssm.po.share.ShareData" >
+    update share_data
+    <set >
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=TINYINT},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null" >
+        descript = #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="infavs != null" >
+        infavs = #{infavs,jdbcType=TINYINT},
+      </if>
+      <if test="inlikes != null" >
+        inlikes = #{inlikes,jdbcType=TINYINT},
+      </if>
+      <if test="shareLink != null" >
+        share_link = #{shareLink,jdbcType=VARCHAR},
+      </if>
+      <if test="likes != null" >
+        likes = #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="comments != null" >
+        comments = #{comments,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null" >
+        share_count = #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="dispalyTitle != null" >
+        dispaly_title = #{dispalyTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="favCount != null" >
+        fav_count = #{favCount,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null" >
+        read_count = #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="isGoodsNote != null" >
+        is_goods_note = #{isGoodsNote,jdbcType=TINYINT},
+      </if>
+      <if test="modelType != null" >
+        model_type = #{modelType,jdbcType=VARCHAR},
+      </if>
+      <if test="cursorScore != null" >
+        cursor_score = #{cursorScore,jdbcType=DOUBLE},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qc.ssm.po.share.ShareData" >
+    update share_data
+    set enable = #{enable,jdbcType=TINYINT},
+      level = #{level,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      descript = #{descript,jdbcType=VARCHAR},
+      infavs = #{infavs,jdbcType=TINYINT},
+      inlikes = #{inlikes,jdbcType=TINYINT},
+      share_link = #{shareLink,jdbcType=VARCHAR},
+      likes = #{likes,jdbcType=INTEGER},
+      comments = #{comments,jdbcType=INTEGER},
+      share_count = #{shareCount,jdbcType=INTEGER},
+      dispaly_title = #{dispalyTitle,jdbcType=VARCHAR},
+      fav_count = #{favCount,jdbcType=INTEGER},
+      read_count = #{readCount,jdbcType=INTEGER},
+      is_goods_note = #{isGoodsNote,jdbcType=TINYINT},
+      model_type = #{modelType,jdbcType=VARCHAR},
+      cursor_score = #{cursorScore,jdbcType=DOUBLE},
+      category = #{category,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!--查询关联的所有信息-->
+  <select id="getShareDataByCategory" resultMap="shareDataImageList" parameterType="java.util.Map">
+              SELECT
+          a.*, b.*, m.*,v.*
+      FROM
+          share_data a
+      LEFT JOIN share_data_image b ON a.id = b.share_data_id
+      LEFT JOIN share_data_mini_program m ON a.id = m.share_data_id
+      LEFT JOIN share_data_video v ON a.id = v.share_data_id
+      WHERE
+        <if test="category != null" >
+          a.category = #{category} AND
+        </if>
+        a.type = #{type}
+      ORDER BY
+        a.likes DESC
+  </select>
+
+  <!--查询图片详情页-->
+  <select id="getImageDetailById" resultMap="shareDataImageList" parameterType="java.util.Map">
+    SELECT
+    a.*, b.*, m.*,v.*
+    FROM
+    share_data a
+    LEFT JOIN share_data_image b ON a.id = b.share_data_id
+    LEFT JOIN share_data_mini_program m ON a.id = m.share_data_id
+    LEFT JOIN share_data_video v ON a.id = v.share_data_id
+    WHERE
+    a.id = #{id}
+  </select>
+</mapper>

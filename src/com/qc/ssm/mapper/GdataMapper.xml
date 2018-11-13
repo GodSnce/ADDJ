@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qc.ssm.mapper.GdataMapper" >
+  <resultMap id="BaseResultMap" type="com.qc.ssm.po.Gdata" >
+    <result column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="idfa" property="idfa" jdbcType="VARCHAR" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="media" property="media" jdbcType="VARCHAR" />
+    <result column="cip" property="cip" jdbcType="VARCHAR" />
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    <result column="tagid" property="tagid" jdbcType="VARCHAR" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="regip" property="regip" jdbcType="VARCHAR" />
+    <result column="regtime" property="regtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gid, idfa, imei, status, media, cip, ctime, tagid, channel, regip, regtime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qc.ssm.po.GdataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gdata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.qc.ssm.po.GdataExample" >
+    delete from gdata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qc.ssm.po.Gdata" >
+    insert into gdata (gid, idfa, imei, 
+      status, media, cip, 
+      ctime, tagid, channel, 
+      regip, regtime)
+    values (#{gid,jdbcType=INTEGER}, #{idfa,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{media,jdbcType=VARCHAR}, #{cip,jdbcType=VARCHAR}, 
+      #{ctime,jdbcType=TIMESTAMP}, #{tagid,jdbcType=VARCHAR}, #{channel,jdbcType=VARCHAR}, 
+      #{regip,jdbcType=VARCHAR}, #{regtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qc.ssm.po.Gdata" >
+    insert into gdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="idfa != null" >
+        idfa,
+      </if>
+      <if test="imei != null" >
+        imei,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="media != null" >
+        media,
+      </if>
+      <if test="cip != null" >
+        cip,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="tagid != null" >
+        tagid,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="regip != null" >
+        regip,
+      </if>
+      <if test="regtime != null" >
+        regtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="idfa != null" >
+        #{idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="media != null" >
+        #{media,jdbcType=VARCHAR},
+      </if>
+      <if test="cip != null" >
+        #{cip,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagid != null" >
+        #{tagid,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="regip != null" >
+        #{regip,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null" >
+        #{regtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qc.ssm.po.GdataExample" resultType="java.lang.Integer" >
+    select count(*) from gdata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gdata
+    <set >
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.idfa != null" >
+        idfa = #{record.idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imei != null" >
+        imei = #{record.imei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.media != null" >
+        media = #{record.media,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cip != null" >
+        cip = #{record.cip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctime != null" >
+        ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tagid != null" >
+        tagid = #{record.tagid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel != null" >
+        channel = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regip != null" >
+        regip = #{record.regip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regtime != null" >
+        regtime = #{record.regtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gdata
+    set gid = #{record.gid,jdbcType=INTEGER},
+      idfa = #{record.idfa,jdbcType=VARCHAR},
+      imei = #{record.imei,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      media = #{record.media,jdbcType=VARCHAR},
+      cip = #{record.cip,jdbcType=VARCHAR},
+      ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      tagid = #{record.tagid,jdbcType=VARCHAR},
+      channel = #{record.channel,jdbcType=VARCHAR},
+      regip = #{record.regip,jdbcType=VARCHAR},
+      regtime = #{record.regtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateStatusByGid" parameterType="java.util.Map">
+    UPDATE gdata SET status=#{status} WHERE idfa=#{idfa} AND gid=#{gid}
+  </update>
+  <select id="queryGameData" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT * FROM gdata
+  </select>
+  <!--<select id="queryGameDataFenzu" resultMap="com.qc.ssm.po.GdataFz" parameterType="java.util.Map">-->
+    <!--SELECT g.gid,g.media,g.tagid,g.channel,COUNT(g.gid) AS jihuo FROM gdata g WHERE g.`status`=2 GROUP BY g.gid-->
+  <!--</select>-->
+</mapper>

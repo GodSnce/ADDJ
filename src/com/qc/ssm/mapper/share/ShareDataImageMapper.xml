@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qc.ssm.mapper.share.ShareDataImageMapper" >
+  <resultMap id="BaseResultMap" type="com.qc.ssm.po.share.ShareDataImage" >
+    <id column="fileid" property="fileid" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="width" property="width" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="original" property="original" jdbcType="VARCHAR" />
+    <result column="url_size_large" property="urlSizeLarge" jdbcType="VARCHAR" />
+    <result column="share_data_id" property="shareDataId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fileid, height, width, url, original, url_size_large, share_data_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qc.ssm.po.share.ShareDataImageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from share_data_image
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from share_data_image
+    where fileid = #{fileid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from share_data_image
+    where fileid = #{fileid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qc.ssm.po.share.ShareDataImageExample" >
+    delete from share_data_image
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qc.ssm.po.share.ShareDataImage" >
+    insert into share_data_image (fileid, height, width, 
+      url, original, url_size_large, 
+      share_data_id)
+    values (#{fileid,jdbcType=VARCHAR}, #{height,jdbcType=INTEGER}, #{width,jdbcType=INTEGER}, 
+      #{url,jdbcType=VARCHAR}, #{original,jdbcType=VARCHAR}, #{urlSizeLarge,jdbcType=VARCHAR}, 
+      #{shareDataId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qc.ssm.po.share.ShareDataImage" >
+    insert into share_data_image
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileid != null" >
+        fileid,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="original != null" >
+        original,
+      </if>
+      <if test="urlSizeLarge != null" >
+        url_size_large,
+      </if>
+      <if test="shareDataId != null" >
+        share_data_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileid != null" >
+        #{fileid,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="original != null" >
+        #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="urlSizeLarge != null" >
+        #{urlSizeLarge,jdbcType=VARCHAR},
+      </if>
+      <if test="shareDataId != null" >
+        #{shareDataId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qc.ssm.po.share.ShareDataImageExample" resultType="java.lang.Integer" >
+    select count(*) from share_data_image
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update share_data_image
+    <set >
+      <if test="record.fileid != null" >
+        fileid = #{record.fileid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=INTEGER},
+      </if>
+      <if test="record.width != null" >
+        width = #{record.width,jdbcType=INTEGER},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.original != null" >
+        original = #{record.original,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urlSizeLarge != null" >
+        url_size_large = #{record.urlSizeLarge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareDataId != null" >
+        share_data_id = #{record.shareDataId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update share_data_image
+    set fileid = #{record.fileid,jdbcType=VARCHAR},
+      height = #{record.height,jdbcType=INTEGER},
+      width = #{record.width,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      original = #{record.original,jdbcType=VARCHAR},
+      url_size_large = #{record.urlSizeLarge,jdbcType=VARCHAR},
+      share_data_id = #{record.shareDataId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qc.ssm.po.share.ShareDataImage" >
+    update share_data_image
+    <set >
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="original != null" >
+        original = #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="urlSizeLarge != null" >
+        url_size_large = #{urlSizeLarge,jdbcType=VARCHAR},
+      </if>
+      <if test="shareDataId != null" >
+        share_data_id = #{shareDataId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fileid = #{fileid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qc.ssm.po.share.ShareDataImage" >
+    update share_data_image
+    set height = #{height,jdbcType=INTEGER},
+      width = #{width,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      original = #{original,jdbcType=VARCHAR},
+      url_size_large = #{urlSizeLarge,jdbcType=VARCHAR},
+      share_data_id = #{shareDataId,jdbcType=VARCHAR}
+    where fileid = #{fileid,jdbcType=VARCHAR}
+  </update>
+</mapper>
